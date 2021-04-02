@@ -23,24 +23,10 @@ namespace Portfolio.Data
                     ProjectName="Food Ordering System",
                     ProjectDescription="This is an Food Ordering System",
                     StartMonth="Jan",
-                    StartYear=2021,
+                    StartYear="2021",
                     EndMonth="March",
-                    EndYear=2021,
-                    TechnologiesUsed= new List<Technology>()
-                    {
-                        new Technology()
-                        {
-                            TechnologyName="ASP.Net"
-                        },
-                        new Technology()
-                        {
-                            TechnologyName="SQL Server"
-                        },
-                        new Technology()
-                        {
-                            TechnologyName="Entity Framework"
-                        }
-                    },
+                    EndYear="2021",
+                    TechnologiesUsed="ASP.Net,SQL Server,Entity Framework",
                     Role="Team Lead"
                     }
                 }
@@ -57,23 +43,9 @@ namespace Portfolio.Data
                     ProjectName="Banking",
                     ProjectDescription="This is an Banking App",
                     StartMonth="Jun",
-                    StartYear=2021,
+                    StartYear="2021",
                     Current = true,
-                    TechnologiesUsed= new List<Technology>()
-                    {
-                        new Technology()
-                        {
-                            TechnologyName="Java"
-                        },
-                        new Technology()
-                        {
-                            TechnologyName="SQL Server"
-                        },
-                        new Technology()
-                        {
-                            TechnologyName="Hibernate"
-                        }
-                    },
+                    TechnologiesUsed= "Java,SQL Server,Hibernate",
                     Role="Project Manager"
                     }
                 }
