@@ -1,6 +1,8 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model List<Portfolio.Models.Project>
+@{
+    Html.RenderPartial("_BoxView", Model);
 }
+
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>

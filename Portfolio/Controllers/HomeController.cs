@@ -10,12 +10,12 @@ namespace Portfolio.Controllers
 {
     public class HomeController : Controller
     {
-        PortfolioDBContext context = new PortfolioDBContext();
+        PortfolioDBContext db = new PortfolioDBContext();
         public ActionResult Index()
         {
-            List<Profile> p = new List<Profile>();
-            p = context.Profile.ToList();
-            return View();
+            List<Project> p = new List<Project>();
+            p = db.Projects.Include("Company").ToList();
+            return View(p);
         }
 
         public ActionResult About()
