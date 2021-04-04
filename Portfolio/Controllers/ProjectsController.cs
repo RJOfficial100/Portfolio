@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Portfolio.Data;
+using Portfolio.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Portfolio.Data;
-using Portfolio.Models;
 
 namespace Portfolio.Controllers
 {
@@ -16,20 +14,22 @@ namespace Portfolio.Controllers
         private PortfolioDBContext db = new PortfolioDBContext();
 
         // GET: Projects
+        //used
         public ActionResult Index()
         {
-            var projects = db.Projects.Include(p => p.Company);
+            var projects = db.Companies.Include(p=>p.Projects);
             return View(projects.ToList());
         }
 
         // GET: Projects/Details/5
+        //used
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
+            Project project = db.Projects.Include(c => c.Company).Where(x => x.ProjectId == id).FirstOrDefault();
             if (project == null)
             {
                 return HttpNotFound();
@@ -120,7 +120,21 @@ namespace Portfolio.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        [HttpPost]
+        public PartialViewResult ShowProjects(int id)
+        {
+            List<Company> companies= new List<Company>();
+            if(id==0)
+            {
+                companies = db.Companies.Include(p => p.Projects).ToList();
+                return PartialView("_ShowProject", companies);
+            }
+            else
+            {
+                companies = db.Companies.Where(x => x.CompanyId == id).Include(p => p.Projects).ToList();
+            }
+            return PartialView("_ShowProject", companies);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

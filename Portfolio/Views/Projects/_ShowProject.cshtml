@@ -1,0 +1,38 @@
+﻿@model List<Portfolio.Models.Company>
+@{
+    var current = "Current";
+}
+<div class="row ">
+    @foreach (var it in Model)
+    {
+        foreach (var item in it.Projects)
+        {
+            <div class="ProjectView" id="@item.ProjectId">
+                <a href="@Url.Action("Details","Projects",new { id = item.ProjectId })">
+                    <div class="col-md-4 border">
+                        <div class="card h-100 text-center">
+                            <img src="~/Images/model_view_controller.jpg" class="card-img-top  w-75" alt="...">
+                            <div class="card-body text-center">
+                                <h3 class="card-title"><b>@item.ProjectName</b> - @item.Company.CompanyName</h3>
+                                <p><b>@item.Role</b></p>
+                                <p class="card-text">
+                                    @if (item.StartMonth != null)
+                                    {@item.StartMonth}
+                                    @if (item.StartYear != null)
+                                    {@item.StartYear} -
+                                    @if (!@item.Current)
+                                    {@item.EndMonth
+                                    @item.EndYear}
+                                else
+                                {@current}
+                                </p>
+                                <p class="card-text">@item.ProjectDescription</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+    }
+</div>

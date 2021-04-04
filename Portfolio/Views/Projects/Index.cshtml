@@ -1,0 +1,66 @@
+﻿@model List<Portfolio.Models.Company>
+
+@{
+    ViewBag.Title = "Index";
+}
+<head>
+    <link href="~/Content/Custom/Projects.css" rel="stylesheet" />
+</head>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="vertical-menu">
+                <a id="0" class="active projectSelection">All</a>
+                @foreach (var item in Model)
+                {
+                    <a id="@item.CompanyId" class="projectSelection">@item.CompanyName</a>
+                }
+            </div>
+        </div>
+        <div class="col-9">
+            <div id="projectsArea" class="projectsArea">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(".projectSelection").on("click", function () {
+        var Id = $(this).attr("id");
+        $(".projectSelection").each(function () {
+            $(this).removeClass("active");
+        })
+        $(this).addClass("active");
+
+        $.ajax({
+            type: "POST",
+            url: "/projects/ShowProjects",
+            data: JSON.stringify({ "id": Id }),
+            contentType: "application/json charset=utf-8",
+            success: function (data) {
+                var d = data;
+                $("#projectsArea").html(data);
+            },
+            error: function () {
+                console.error("Error in show projects");
+            }
+        })
+    });
+    $(document).ready(function () {
+        var Id = 0;
+        $.ajax({
+            type: "POST",
+            url: "/projects/ShowProjects",
+            data: JSON.stringify({ "id": Id }),
+            contentType: "application/json charset=utf-8",
+            success: function (data) {
+                $("#projectsArea").html(data);
+            },
+            error: function () {
+                console.error("Error in show projects");
+            }
+        })
+    })
+</script>
