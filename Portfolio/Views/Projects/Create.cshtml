@@ -25,6 +25,7 @@
             @Html.LabelFor(model => model.CompanyId, "CompanyId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("CompanyId", null, htmlAttributes: new { @class = "form-control" })
+                <input type="button" value="Add New Company" onclick="location.href='@Url.Action("Create", "Companies")'" />
                 @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -81,7 +82,7 @@
             @Html.LabelFor(model => model.Current, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    <input type="checkbox" id="Current"/>
+                    <input type="checkbox" id="current_check_project" />
                     @Html.ValidationMessageFor(model => model.Current, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -102,18 +103,20 @@
         </div>
     </div>
 }
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script>
-    $("#Current").on("click", function () {
-        var current = $('#Current').is(':checked');
-
-        if (current) {
-            $("#EndYearDiv").hide();
-            $("#EndMonthDiv").hide();
-        }
-        else {
-            $("#EndYearDiv").show();
-            $("#EndMonthDiv").show();
-        }
-    })
-</script>
+@section Scripts
+{
+    <script>
+        $("#current_check_project").on("click", function () {
+            var current = $('#current_check_project').is(':checked');
+            //alert("this is me");
+            if (current) {
+                $("#EndYearDiv").hide();
+                $("#EndMonthDiv").hide();
+            }
+            else {
+                $("#EndYearDiv").show();
+                $("#EndMonthDiv").show();
+            }
+        })
+    </script>
+}
